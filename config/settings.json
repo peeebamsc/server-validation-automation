@@ -1,0 +1,12 @@
+{
+  "application": {
+    "name": "Server Validation Automation",
+    "version": "0.1.0",
+    "environment": "simulation"
+  },
+  "diagnostic_thresholds": {
+    "max_cpu_temperature_celsius": 85,
+    "max_memory_utilization_percent": 90,
+    "max_disk_temperature_celsius": 70
+  }
+}
