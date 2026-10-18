@@ -463,58 +463,51 @@ GitHub Actions has successfully executed the automated tests and Docker image bu
 
 ## Continuous Integration
 
-The project uses GitHub Actions to execute automated tests when changes are pushed to the main branch or submitted through a pull request targeting main.
+RACK//OPS uses GitHub Actions to automate Python testing and Docker image builds.
+
+The CI pipeline validates application functionality and verifies that the application can be packaged into a Docker image.
 
 The workflow is defined in:
 
-```text
 .github/workflows/python-tests.yml
-```
 
-### CI Pipeline
+CI Pipeline
 
-The workflow performs the following operations:
+The workflow contains two jobs:
 
-1. Checks out the repository.
-2. Configures Python 3.11.
-3. Installs project dependencies.
-4. Executes the complete pytest test suite.
-5. Reports whether the automated tests pass or fail.
+1. Python Tests
 
-### GitHub Actions Workflow
+* Checks out the repository.
+* Configures Python 3.11.
+* Installs project dependencies.
+* Executes the complete pytest test suite.
+* Reports test results.
 
-```yaml
-name: Python Server Validation Tests
+2. Docker Image Build
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+* Runs after the Python Tests job succeeds.
+* Checks out the repository.
+* Configures Docker Buildx.
+* Builds the application Docker image.
+* Verifies that the Docker image builds successfully without publishing it to a container registry.
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+Workflow Triggers
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
+The CI pipeline runs automatically when:
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.11"
+* Changes are pushed to main.
+* Changes are pushed to feature/production-infrastructure.
+* A pull request targets main.
+* The workflow is manually triggered through GitHub Actions.
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+Latest Verified CI Results
 
-      - name: Run automated tests
-        run: python -m pytest -v
-```
+* 42 automated Python tests passing
+* Python Tests job: Successful
+* Docker Image Build job: Successful
+* GitHub Actions workflow: RACK OPS CI
 
-The workflow provides automated validation of committed code changes.
+The CI pipeline provides automated regression testing and container build validation throughout infrastructure development.
 
 ## Engineering Objectives
 
