@@ -144,43 +144,59 @@ python -m pip install -r requirements.txt
 
 | Technology | Purpose |
 |---|---|
-| Python 3.11 | Core application development |
-| Pydantic | Hardware data modeling and validation |
-| Pytest | Automated unit testing |
+| Python 3.11 | Core application development and automation |
+| Pydantic | Hardware data modeling and input validation |
+| FastAPI | REST API development and hardware diagnostics endpoints |
+| Streamlit | Interactive infrastructure monitoring dashboard |
+| Docker | Containerization of dashboard and API services |
+| Docker Compose | Multi-container orchestration and persistent volumes |
+| Pytest | Automated unit and API testing |
 | Rich | Terminal dashboards and formatted output |
-| JSON | Configuration and diagnostic reporting |
+| JSON | Configuration, diagnostic reporting, and structured logging |
 | Git | Version control |
 | GitHub | Source code hosting |
-| GitHub Actions | Continuous integration and automated testing |
+| GitHub Actions | Continuous integration, automated testing, and Docker image builds |
 
 ## Project Structure
 
-```text
 server-validation-automation/
 ├── .github/
 │   └── workflows/
 │       └── python-tests.yml
+├── .streamlit/
+│   └── config.toml
 ├── config/
 │   └── settings.json
 ├── docs/
+│   └── screenshots/
 ├── reports/
 ├── src/
 │   ├── __init__.py
-│   ├── server_models.py
-│   ├── server_diagnostics.py
+│   ├── api.py
+│   ├── logging_config.py
+│   ├── repair_history.py
+│   ├── repair_workflow.py
 │   ├── report_generator.py
-│   └── repair_workflow.py
+│   ├── server_diagnostics.py
+│   ├── server_inventory.py
+│   └── server_models.py
 ├── tests/
-│   ├── __init__.py
+│   ├── test_api.py
 │   ├── test_diagnostics.py
-│   ├── test_reporting.py
-│   └── test_repair_workflow.py
+│   ├── test_logging.py
+│   ├── test_repair_workflow.py
+│   └── test_reporting.py
+├── .dockerignore
 ├── .gitignore
+├── compose.yaml
+├── dashboard.py
+├── Dockerfile
+├── Dockerfile.api
 ├── LICENSE
-├── README.md
 ├── main.py
+├── README.md
 └── requirements.txt
-```
+
 
 ### Core Modules
 
@@ -338,7 +354,11 @@ The repair workflow returns structured information containing:
 - Final diagnostic results
 - Repair success status
 
-Repair records are currently generated in memory and displayed in the terminal. Persistent repair-history storage is planned for a future release.
+Repair records are stored persistently in reports/repair_history.json.
+
+The repair-history module supports saving and retrieving simulated repair records. Docker containers are configured to share a named volume for persistent repair-history storage.
+
+Shared-volume operation across the dashboard and API containers is pending final runtime verification.
 
 **All repair operations are simulated. The application does not modify physical hardware.**
 
@@ -418,7 +438,28 @@ python -m pytest -v
 20 passed in 0.55s
 ```
 
-**Total: 20 automated tests passing.**
+**Total: 20 automated tests passing.** (10/15/2026)
+
+Latest Verified Test Results
+
+42 automated tests passing
+
+The test suite covers:
+
+* Hardware diagnostics and threshold validation
+* JSON diagnostic reporting
+* Repair and retest workflows
+* Persistent repair-history operations
+* FastAPI endpoints and request validation
+* Structured JSON logging
+
+The complete test suite can be executed using:
+
+python -m pytest -v
+
+GitHub Actions has successfully executed the automated tests and Docker image build on the feature/production-infrastructure branch.
+
+
 
 ## Continuous Integration
 
@@ -507,34 +548,50 @@ This project demonstrates foundational skills relevant to infrastructure automat
 - Diagnostic result comparison
 - Reproducible testing environments
 
-## Roadmap
+### Roadmap
 
-### Completed
+Completed
 
-- [x] Python project setup and virtual environment
-- [x] Simulated server hardware models
-- [x] Configurable diagnostic thresholds
-- [x] Automated hardware validation
-- [x] Hardware failure classification
-- [x] JSON diagnostic report generation
-- [x] Terminal-based validation dashboard
-- [x] Simulated hardware repair and retesting
-- [x] Initial and post-repair diagnostic comparison
-- [x] Automated repair workflow tests
-- [x] GitHub Actions continuous integration
-- [x] 20 automated tests passing locally
+* [x]	Python project setup and virtual environment
+* [x]	Simulated server hardware models
+* [x]	Configurable diagnostic thresholds
+* [x]	Automated hardware validation
+* [x]	Hardware failure classification
+* [x]	JSON diagnostic report generation
+* [x]	Terminal-based validation dashboard
+* [x]	Simulated hardware repair and retesting
+* [x]	Initial and post-repair diagnostic comparison
+* [x]	Automated repair workflow tests
+* [x]	Simulated server rack inventory
+* [x]	Persistent JSON repair history
+* [x]	Multiple simulated diagnostic and repair records
+* [x]	Interactive Streamlit infrastructure dashboard
+* [x]	Server rack visualization and hardware health indicators
+* [x]	FastAPI REST API development
+* [x]	REST endpoints for server inventory and diagnostics
+* [x]	REST endpoints for simulated repairs and repair history
+* [x]	Pydantic API request validation
+* [x]	Structured JSON application logging
+* [x]	Docker containerization of dashboard and API services
+* [x]	Docker Compose service configuration
+* [x]	Docker Compose image builds
+* [x]	GitHub Actions continuous integration
+* [x]	Automated Docker image builds in GitHub Actions
+* [x]	42 automated tests passing locally
+* [x]	Successful GitHub Actions test and Docker build pipeline
 
-### Planned Enhancements
+Planned Enhancements
 
-- [ ] Simulated server rack inventory and asset tracking
-- [ ] Persistent repair history and audit logging
-- [ ] Multiple diagnostic and repair attempts
-- [ ] Structured repair-history JSON exports
-- [ ] Data integrity validation for saved repair records
-- [ ] Infrastructure monitoring dashboard
-- [ ] Docker containerization
-- [ ] Expanded automated testing
-- [ ] Additional infrastructure automation workflows
+* [ ]	Docker Compose multi-container runtime verification
+* [ ]	Verify shared persistent repair history between API and dashboard
+* [ ]	Data integrity validation for saved repair records
+* [ ]	Structured repair-history JSON export functionality
+* [ ]	Expanded API integration and infrastructure testing
+* [ ]	Additional infrastructure automation workflows
+* [ ]	Production-style deployment configuration
+* [ ]	Finalize v2.0.0 documentation
+* [ ]	Merge infrastructure development branch into main
+* [ ]	Publish RACK//OPS v2.0.0 GitHub release
 
 ## Disclaimer
 
