@@ -1,4 +1,4 @@
-from fastapi.testclient import TestClient
+﻿from fastapi.testclient import TestClient
 from src.api import app
 
 client = TestClient(app)
@@ -107,9 +107,9 @@ def test_diagnostics_server_not_found():
     assert response.json() == {
         "detail": "Server 'LAB-RACK-999' not found"
     }
-    
+
 def test_create_repair(tmp_path, monkeypatch):
-    
+
     import src.api as api
     import src.repair_history as repair_history
 
@@ -177,7 +177,7 @@ def test_create_repair_invalid_notes():
     )
 
     assert response.status_code == 422
-    
+
 
 
 
@@ -205,7 +205,7 @@ def test_create_repair_rejects_unknown_field():
     )
 
     assert response.status_code == 422
-    
+
     def test_create_repair_rejects_invalid_temperature():
         response = client.post(
             "/api/v1/repairs",
@@ -217,7 +217,7 @@ def test_create_repair_rejects_unknown_field():
         )
 
         assert response.status_code == 422
-        
+
 def test_create_repair_rejects_invalid_temperature():
     response = client.post(
         "/api/v1/repairs",
