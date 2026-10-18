@@ -3,7 +3,7 @@ import streamlit.components.v1 as components
 import streamlit as st
 import pandas as pd
 
-from src.server_models import ServerHardware
+from src.server_inventory import create_simulated_servers
 from src.server_diagnostics import diagnose_server
 from src.repair_workflow import repair_and_retest
 from src.repair_history import save_repair_record, load_repair_history
@@ -20,42 +20,6 @@ st.set_page_config(
 # --------------------------------------------------
 # SIMULATED SERVER INVENTORY
 # --------------------------------------------------
-
-def create_simulated_servers():
-
-    return [
-        ServerHardware(
-            rack_id="LAB-RACK-001",
-            server_model="SIMULATED-X86",
-            cpu_temperature=65,
-            memory_utilization=55,
-            disk_temperature=40,
-            disk_healthy=True,
-            power_supply_healthy=True,
-            network_connected=True,
-        ),
-        ServerHardware(
-            rack_id="LAB-RACK-002",
-            server_model="SIMULATED-X86",
-            cpu_temperature=95,
-            memory_utilization=55,
-            disk_temperature=40,
-            disk_healthy=False,
-            power_supply_healthy=False,
-            network_connected=True,
-        ),
-        ServerHardware(
-            rack_id="LAB-RACK-003",
-            server_model="SIMULATED-X86",
-            cpu_temperature=70,
-            memory_utilization=95,
-            disk_temperature=75,
-            disk_healthy=True,
-            power_supply_healthy=True,
-            network_connected=False,
-        ),
-    ]
-
 
 # --------------------------------------------------
 # VISUAL DESIGN
