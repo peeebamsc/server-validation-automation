@@ -4,6 +4,7 @@ from rich.table import Table
 from src.server_models import ServerHardware
 from src.report_generator import generate_report, save_report
 from src.repair_workflow import repair_and_retest
+from src.repair_history import save_repair_record, load_repair_history
 
 console = Console()
 
@@ -86,6 +87,12 @@ def main():
         },
         repair_notes="Simulated CPU cooling, disk, and PSU repairs."
     )
+    
+    # Save the repair record to persistent JSON history.
+    history_path = save_repair_record(repair_record)
+
+    # Reload the saved history to verify persistence.
+    repair_history = load_repair_history()
 
     repair_table = Table(title="Repair Validation Results")
 
@@ -121,6 +128,13 @@ def main():
         f"Repair Notes: {repair_record['repair_notes']}"
     )
 
+    console.print(
+        f"\n[green]Repair history saved to: {history_path}[/green]"
+    )
+
+    console.print(
+        f"Total Repair Records: {len(repair_history)}"
+    )
 
 if __name__ == "__main__":
     main()

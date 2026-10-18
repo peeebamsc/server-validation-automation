@@ -24,6 +24,37 @@ The project emphasizes:
 
 **All hardware data is synthetic. No proprietary production systems or employer information are used.**
 
+## RACK//OPS Dashboard
+
+RACK//OPS is a Python-based infrastructure operations dashboard
+for simulated server hardware diagnostics, repair automation,
+and quality assurance validation.
+
+### Dashboard Preview
+
+![RACK//OPS Infrastructure Dashboard](docs/screenshots/rack-ops-dashboard.png)
+
+### Features
+
+- Interactive infrastructure monitoring dashboard
+- 3D-styled simulated server rack
+- Color-coded server health indicators
+- CPU, memory, disk, PSU, and network diagnostics
+- Automated PASS/FAIL classification
+- WARNING and CRITICAL severity classification
+- Simulated repair and retest workflows
+- Before-and-after diagnostic comparisons
+- Persistent JSON repair history
+- Automated testing with pytest
+- GitHub Actions continuous integration
+
+### Launch the Dashboard
+
+Install dependencies:
+
+```powershell
+python -m pip install -r requirements.txt
+
 ## Features
 
 ### Automated Hardware Diagnostics
