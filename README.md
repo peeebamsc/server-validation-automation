@@ -32,7 +32,8 @@ The application demonstrates simulated enterprise server diagnostics, hardware f
 
 ### Dashboard Preview
 
-![RACK//OPS Infrastructure Dashboard](docs/screenshots/rack-ops-dashboard.png)
+<img width="3204" height="1774" alt="image" src="https://github.com/user-attachments/assets/cac5c327-d911-4015-a11d-d60c8be7cea8" />
+
 
 ### Dashboard Features
 
