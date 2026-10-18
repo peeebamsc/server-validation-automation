@@ -35,6 +35,46 @@ The application demonstrates simulated enterprise server diagnostics, hardware f
 <img width="3204" height="1774" alt="image" src="https://github.com/user-attachments/assets/cac5c327-d911-4015-a11d-d60c8be7cea8" />
 
 
+### Production-Style Infrastructure Automation (v2.0.0 Development)
+
+RACK//OPS is a server validation and debug automation project designed to simulate hardware diagnostics, repair workflows, and infrastructure operations.
+
+The project combines Python-based hardware validation with a REST API, an interactive dashboard, automated testing, containerization, and structured logging.
+
+Infrastructure and Automation
+
+* Python and Pydantic: Validate simulated server hardware metrics and enforce input constraints.
+* FastAPI: Provide REST endpoints for server inventory, hardware diagnostics, simulated repairs, and repair history.
+* Streamlit: Display server health, diagnostic results, and repair workflows through an interactive dashboard.
+* Docker: Package the dashboard and API into separate container images.
+* Docker Compose: Define the dashboard and API services with shared persistent storage. Multi-container startup and persistence verification are in progress.
+* GitHub Actions: Automatically run Python tests and build a Docker image for CI validation.
+* Structured JSON Logging: Capture HTTP requests, execution times, diagnostic severity, and repair events.
+
+Automated Validation
+
+The current test suite contains 42 passing automated tests, covering server diagnostics, reporting, repair workflows, API behavior, request validation, and logging formatting.
+
+The GitHub Actions pipeline has successfully completed both the Python test job and Docker image build job.
+
+REST API
+
+Method	Endpoint	Purpose
+GET	/health	API health check
+GET	/api/v1/servers	List simulated servers
+GET	/api/v1/servers/{rack_id}	Retrieve server details
+GET	/api/v1/diagnostics/{rack_id}	Execute hardware diagnostics
+POST	/api/v1/repairs	Simulate repairs and retesting
+GET	/api/v1/repairs/history	Retrieve saved repair records
+
+Interactive API documentation is available at /docs when the API service is running.
+
+Engineering Focus
+
+This project demonstrates practical skills in server hardware validation, Python automation, API development, automated testing, Docker containerization, CI pipelines, and infrastructure observability.
+
+Development status: v2.0.0 infrastructure integration is in progress. All 42 tests and the GitHub Actions container build have passed. Docker Compose runtime verification remains pending.
+
 ### Dashboard Features
 
 - Modern dark-themed infrastructure operations interface
